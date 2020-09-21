@@ -4,5 +4,6 @@ export interface I${componentName}Props {
   foo: string;
 }
 `,
+type: 'typings',
 extension: `.types.ts`
 });

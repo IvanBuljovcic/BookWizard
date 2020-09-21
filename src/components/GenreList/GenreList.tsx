@@ -1,11 +1,19 @@
 // Generated with util/create-component.js
 import React from 'react';
 
+// Components
+import * as S from './GenreListStyles';
+
+// Typings
 import { IGenreListProps } from './GenreList.types';
-import styles from './GenreList.module.scss';
 
 const GenreList: React.FC<IGenreListProps> = ({ foo }) => (
-    <div data-testid='GenreList' className={styles.foo_bar}>{foo}</div>
+  <S.GenreList data-testid="GenreList">
+    <h1>
+      Component generated with <code>util/create-component.js</code>
+    </h1>
+    {foo}
+  </S.GenreList>
 );
 
 export default GenreList;

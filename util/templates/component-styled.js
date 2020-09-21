@@ -7,5 +7,6 @@ export const ${componentName} = styled.div\`
   // Write styles here
 \`;
 `,
+type: 'style',
 extension: `.ts`
 })

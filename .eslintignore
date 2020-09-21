@@ -1,8 +1,0 @@
-.storybook
-node_modules
-util
-vendors
-build
-deploy
-rollup.config.js
-translations.js

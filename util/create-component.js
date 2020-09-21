@@ -33,10 +33,22 @@ fs.mkdirSync(componentDirectory);
 const generatedTemplates = templates.map((template) => template(componentName));
 
 generatedTemplates.forEach((template) => {
-  fs.writeFileSync(
-    `${componentDirectory}/${componentName}${template.extension}`,
-    template.content
-  );
+  if (template.type === 'style') {
+    fs.writeFileSync(
+      `${componentDirectory}/${componentName}Styles${template.extension}`,
+      template.content
+    )
+  } else if (template.type === 'index') {
+    fs.writeFileSync(
+      `${componentDirectory}/index${template.extension}`,
+      template.content
+    );
+  } else {
+    fs.writeFileSync(
+      `${componentDirectory}/${componentName}${template.extension}`,
+      template.content
+    );
+  }
 });
 
 console.log(
