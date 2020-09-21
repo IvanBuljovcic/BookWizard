@@ -4,18 +4,12 @@ import React from 'react';
 import './App.css';
 
 // Components
-import GenreList from './components/GenreList';
+import AddBook from './components/AddBook';
 
-import logo from './logo.svg';
-
-const App: React.FC<any> = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <GenreList foo="Hello World" />
-      </header>
+      <AddBook />
     </div>
   );
 };
