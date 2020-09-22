@@ -2,5 +2,5 @@
 import styled from 'styled-components';
 
 export const StepView = styled.div`
-  // Write styles here
+  margin-bottom: 2rem;
 `;

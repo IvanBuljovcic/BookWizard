@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 
 // Components
 import * as S from './GenreListStyles';
-import { Button, Space } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 // Typings
 import { IGenre, IGenreListProps, ISubGenre } from './GenreList.types';
@@ -18,7 +17,6 @@ const GenreList: React.FC<IGenreListProps> = ({
   handleAddNew = () => null,
   handleBack = () => null,
 }) => {
-  console.log('genres: ', genres);
   const [selectedGenre, setSelectedGenre] = useState<number | null>();
   const [addNewSelected, setAddNewSelected] = useState<boolean>(false);
 
@@ -34,15 +32,15 @@ const GenreList: React.FC<IGenreListProps> = ({
   };
 
   const nextDisabled = () => {
-    if (!selectedGenre) return false;
-    if (!addNewSelected) return false;
+    if (selectedGenre) return false;
+    if (addNewSelected) return false;
     return true;
   };
 
   const handleNextClick = () => {
     if (addNewSelected) return handleAddNew();
 
-    return handleNext(selectedGenre || 1);
+    return handleNext(selectedGenre!);
   };
 
   return (
@@ -72,19 +70,6 @@ const GenreList: React.FC<IGenreListProps> = ({
         </S.ListGrid>
       )}
 
-      {/* <Space align="center" style={{ width: '100%', justifyContent: 'end' }}>
-        <Button icon={<LeftOutlined />} disabled={backDisabled} onClick={() => handleBack()}>
-          Back
-        </Button>
-
-        <Button
-          disabled={!nextEnabled()}
-          type={nextEnabled() ? 'primary' : 'default'}
-          onClick={() => handleNextClick()}
-        >
-          Next
-        </Button>
-      </Space> */}
       <AddBookFooter
         nextDisabled={nextDisabled()}
         handleNext={handleNextClick}

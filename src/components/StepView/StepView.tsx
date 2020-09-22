@@ -1,6 +1,5 @@
 // Generated with util/create-component.js
 import React from 'react';
-import _ from 'lodash';
 
 // Typings
 import { IStepViewProps } from './StepView.types';
@@ -9,15 +8,13 @@ import { IStepViewProps } from './StepView.types';
 import * as S from './StepViewStyles';
 import { Steps } from 'antd';
 
-const StepView: React.FC<IStepViewProps> = ({ currentStep, steps, disabledSteps }) => {
+const StepView: React.FC<IStepViewProps> = ({ currentStep, steps }) => {
   return (
     <S.StepView data-testid="StepView">
       <Steps current={currentStep}>
-        {steps.map((step, index) => {
-          const isDisabled = _.includes(disabledSteps, index + 1);
-
-          return <Steps.Step title={step} disabled={isDisabled} key={step} />;
-        })}
+        {steps.map(step => (
+          <Steps.Step title={step} key={step} />
+        ))}
       </Steps>
     </S.StepView>
   );

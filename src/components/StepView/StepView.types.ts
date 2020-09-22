@@ -2,5 +2,4 @@
 export interface IStepViewProps {
   currentStep: number;
   steps: string[];
-  disabledSteps?: number[];
 }
