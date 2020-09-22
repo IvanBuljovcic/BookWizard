@@ -19,7 +19,7 @@ if (!componentPath) {
   if (!fs.existsSync(componentPath)) {
     fs.mkdirSync(`./src/components/${componentPath}`)
   }
-  
+
   componentDirectory = `./src/components/${componentPath}/${componentName}`;
 }
 
@@ -50,7 +50,6 @@ generatedTemplates.forEach((template) => {
     );
   }
 });
-
 
 console.log(
   "Successfully created component under: " + componentDirectory.green
