@@ -1,15 +1,18 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 // Styles
 import './App.css';
 
 // Components
-import AddBook from './components/AddBook';
+import Routes from './components/Routes';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <AddBook />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </div>
   );
 };
