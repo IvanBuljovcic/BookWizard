@@ -16,7 +16,7 @@ export interface IGenreListProps {
   backDisabled?: boolean;
   genres: (IGenre | ISubGenre)[];
   genre?: IGenre | ISubGenre;
-  handleNext?: (id: number) => void;
+  handleNext?: (genre: any) => void; // Needs to be properly typed, maybe split into two functions that accept different parameter type
   handleAddNew?: () => void;
   handleBack?: () => void;
 }

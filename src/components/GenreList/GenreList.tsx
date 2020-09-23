@@ -18,17 +18,17 @@ const GenreList: React.FC<IGenreListProps> = ({
   handleBack = () => null,
   genre,
 }) => {
-  const [selectedGenre, setSelectedGenre] = useState<number | null>();
+  const [selectedGenre, setSelectedGenre] = useState<IGenre | ISubGenre | null>();
   const [addNewSelected, setAddNewSelected] = useState<boolean>(false);
 
   useEffect(() => {
-    if (genre) setSelectedGenre(genre.id);
+    if (genre) setSelectedGenre(genre);
   }, [genre]);
 
-  const handleGenreChange = (genreId: number) => {
+  const handleGenreChange = (genre: IGenre | ISubGenre) => {
     if (addNewEnabled) setAddNewSelected(false);
 
-    setSelectedGenre(genreId);
+    setSelectedGenre(genre);
   };
 
   const handleAddNewClick = () => {
@@ -53,7 +53,7 @@ const GenreList: React.FC<IGenreListProps> = ({
       {genres && (
         <S.ListGrid>
           {genres.map((genre: IGenre | ISubGenre) => {
-            if (genre.id === selectedGenre)
+            if (genre.id === selectedGenre?.id)
               return (
                 <Button key={genre.id} type="primary">
                   {genre.name}
@@ -61,7 +61,7 @@ const GenreList: React.FC<IGenreListProps> = ({
               );
 
             return (
-              <Button key={genre.id} onClick={() => handleGenreChange(genre.id)}>
+              <Button key={genre.id} onClick={() => handleGenreChange(genre)}>
                 {genre.name}
               </Button>
             );

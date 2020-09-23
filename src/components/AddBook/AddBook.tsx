@@ -1,6 +1,5 @@
 // Generated with util/create-component.js
 import React, { useState, useReducer } from 'react';
-import _ from 'lodash';
 
 // Components
 import * as S from './AddBookStyles';
@@ -40,10 +39,8 @@ const AddBook: React.FC = () => {
   };
 
   // Filter out the selected genre by its id from the list of genres
-  const handleGenreSelect = (id: number) => {
-    const selectedGenre = _.find(genreData, (item: IGenre) => item.id === id);
-
-    setGenre(dispatch, selectedGenre);
+  const handleGenreSelect = (genre: IGenre) => {
+    setGenre(dispatch, genre);
     setStep(dispatch, 1);
   };
 
@@ -53,10 +50,8 @@ const AddBook: React.FC = () => {
     setStep(dispatch, 2);
   };
 
-  const handleSetSubgenre = (id: number) => {
-    const selectedSubGenre = _.find(genre?.subgenres, (item: ISubGenre) => item.id === id);
-
-    setSubGenre(dispatch, selectedSubGenre);
+  const handleSetSubgenre = (genre: ISubGenre) => {
+    setSubGenre(dispatch, genre);
     setStep(dispatch, 3);
   };
 
