@@ -25,7 +25,7 @@ const AddBookFooter: React.FC<IAddBookFooterProps> = ({
       </Button>
 
       {!isSubmit && (
-        <Button disabled={nextDisabled} type={nextDisabled ? 'primary' : 'default'} onClick={() => handleNext()}>
+        <Button disabled={nextDisabled} type={!nextDisabled ? 'primary' : 'default'} onClick={() => handleNext()}>
           {nextButtonText}
         </Button>
       )}

@@ -9,7 +9,7 @@ import { INewSubgenreProps } from './NewSubgenre.types';
 import { Checkbox, Form, Input } from 'antd';
 
 const NewSubgenre: React.FC<INewSubgenreProps> = ({ parentGenre, handleAfterSubmit }) => {
-  const handleSubgenreCreation = async (values: any) => {
+  const handleSubgenreCreation = async (values: { name: string; isDescriptionRequired: boolean }) => {
     const newGenreId = Math.floor(Math.random() * 100); // Mock ID assignment, this would be handled by the BE
     const newGenre = {
       id: newGenreId, // Mock ID assignment, this would be handled by the BE
@@ -27,12 +27,17 @@ const NewSubgenre: React.FC<INewSubgenreProps> = ({ parentGenre, handleAfterSubm
         ...parentGenre,
         subgenres: [...parentGenre.subgenres, newGenre],
       }),
-    }).then(() => handleAfterSubmit(newGenreId));
+    }).then(() => handleAfterSubmit(values.name));
   };
 
   return (
     <S.NewSubgenre data-testid="NewSubgenre">
-      <Form id="newSubgenreForm" onFinish={handleSubgenreCreation} validateTrigger="onBlur">
+      <Form
+        id="newSubgenreForm"
+        onFinish={handleSubgenreCreation}
+        validateTrigger="onBlur"
+        style={{ textAlign: 'left' }}
+      >
         <Form.Item name="name" rules={[{ required: true, message: 'Name is required!' }]}>
           <Input type="text" placeholder="Subgenre name" />
         </Form.Item>

@@ -1,10 +1,8 @@
 {
-  "genres": [
-    {
+  "genres": [{
       "id": 1,
       "name": "Genre 1",
-      "subgenres": [
-        {
+      "subgenres": [{
           "id": 10,
           "name": "Subgenre 1",
           "isDescriptionRequired": true
@@ -27,19 +25,13 @@
         {
           "id": 14,
           "name": "Subgenre 5"
-        },
-        {
-          "id": 7,
-          "name": "TEST",
-          "isDescriptionRequired": false
         }
       ]
     },
     {
       "id": 2,
       "name": "Genre 2",
-      "subgenres": [
-        {
+      "subgenres": [{
           "id": 15,
           "name": "Subgenre 1",
           "isDescriptionRequired": true
@@ -59,8 +51,7 @@
     {
       "id": 3,
       "name": "Genre 3",
-      "subgenres": [
-        {
+      "subgenres": [{
           "id": 18,
           "name": "Subgenre 1",
           "isDescriptionRequired": true
@@ -80,8 +71,7 @@
     {
       "id": 4,
       "name": "Genre 4",
-      "subgenres": [
-        {
+      "subgenres": [{
           "id": 21,
           "name": "Subgenre 1",
           "isDescriptionRequired": false
@@ -101,17 +91,14 @@
     {
       "id": 5,
       "name": "Genre 5",
-      "subgenres": [
-        {
-          "id": 24,
-          "name": "Subgenre 1",
-          "isDescriptionRequired": true
-        }
-      ]
+      "subgenres": [{
+        "id": 24,
+        "name": "Subgenre 1",
+        "isDescriptionRequired": true
+      }]
     }
   ],
-  "authors": [
-    {
+  "authors": [{
       "id": 1,
       "name": "Birgit Salmon"
     },
@@ -152,8 +139,7 @@
       "name": "Brad Antonutti"
     }
   ],
-  "publishers": [
-    {
+  "publishers": [{
       "id": 1,
       "name": "Ntag"
     },
@@ -194,8 +180,7 @@
       "name": "Aimbo"
     }
   ],
-  "books": [
-    {
+  "books": [{
       "book_title": "Child 44",
       "author": "Tom Rob Smith",
       "isbn": "0446402397",

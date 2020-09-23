@@ -1,12 +1,12 @@
 /* tslint:disable */
 module.exports = (componentName) => ({
-content: `// Generated with util/create-component.js
+  content: `// Generated with util/create-component.js
 import styled from 'styled-components';
 
 export const ${componentName} = styled.div\`
-  // Write styles here
+  /* Write styles here */
 \`;
 `,
-type: 'style',
-extension: `.ts`
+  type: 'style',
+  extension: `.ts`
 })

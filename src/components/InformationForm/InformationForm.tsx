@@ -63,12 +63,24 @@ const InformationForm: React.FC<TRoutedInformationForm> = ({
     <S.InformationForm data-testid="InformationForm">
       <Form validateTrigger="onBlur" id="myForm" onFinish={useSubmit}>
         {/* TITLE */}
-        <Form.Item label="Book title" name="book_title" rules={[{ required: true, message: 'Field is required!' }]}>
+        <Form.Item
+          label="Book title"
+          name="book_title"
+          rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
+        >
           <Input />
         </Form.Item>
 
         {/* AUTHOR */}
-        <Form.Item label="Author" name="author" rules={[{ required: true, message: 'Field is required!' }]}>
+        <Form.Item
+          label="Author"
+          name="author"
+          rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
+        >
           <Select>
             {authorsData &&
               authorsData.map((author: IAuthor) => (
@@ -80,12 +92,24 @@ const InformationForm: React.FC<TRoutedInformationForm> = ({
         </Form.Item>
 
         {/* ISBN */}
-        <Form.Item label="ISBN" name="isbn" rules={[{ required: true, message: 'Field is required!' }]}>
+        <Form.Item
+          label="ISBN"
+          name="isbn"
+          rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
+        >
           <Input />
         </Form.Item>
 
         {/* PUBLISHER */}
-        <Form.Item label="Publisher" name="publisher" rules={[{ required: true, message: 'Field is required!' }]}>
+        <Form.Item
+          label="Publisher"
+          name="publisher"
+          rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
+        >
           <Select>
             {publishersData &&
               publishersData.map((publisher: IPublisher) => (
@@ -101,17 +125,26 @@ const InformationForm: React.FC<TRoutedInformationForm> = ({
           label="Date published"
           name="date_published"
           rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
         >
-          <DatePicker format="YYYY-MM-DD HH:mm" />
+          <div style={{ display: 'flex', alignItems: 'start' }}>
+            <DatePicker format="YYYY-MM-DD HH:mm" />
+          </div>
         </Form.Item>
 
         {/* NUMBER OF PAGES */}
-        <Form.Item label="Number of pages" name="page_number">
+        <Form.Item
+          label="Number of pages"
+          name="page_number"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 4, offset: 1 }}
+        >
           <Input type="number" />
         </Form.Item>
 
         {/* BOOK FORMAT */}
-        <Form.Item label="Format" name="format">
+        <Form.Item label="Format" name="format" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
           <Select>
             {BOOK_FORMATS.map(format => (
               <Select.Option key={format} value={format}>
@@ -121,33 +154,35 @@ const InformationForm: React.FC<TRoutedInformationForm> = ({
           </Select>
         </Form.Item>
 
-        <Space>
-          {/* EDITION */}
-          <Form.Item label="Edition" name="edition">
-            <Input />
-          </Form.Item>
+        {/* EDITION */}
+        <Form.Item label="Edition" name="edition" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
+          <Input />
+        </Form.Item>
 
-          {/* EDITION LANGUAGE */}
-          <Form.Item
-            label="Edition language"
-            name="edition_language"
-            initialValue={EDITION_LANGUAGES[0]}
-            rules={[{ required: true, message: 'Field is required!' }]}
-          >
-            <Select>
-              {EDITION_LANGUAGES.map(lang => (
-                <Select.Option key={lang} value={lang}>
-                  {lang}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Space>
+        {/* EDITION LANGUAGE */}
+        <Form.Item
+          label="Edition language"
+          name="edition_language"
+          initialValue={EDITION_LANGUAGES[0]}
+          rules={[{ required: true, message: 'Field is required!' }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 5, offset: 1 }}
+        >
+          <Select>
+            {EDITION_LANGUAGES.map(lang => (
+              <Select.Option key={lang} value={lang}>
+                {lang}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
 
         {/* DESCRIPTION */}
         <Form.Item
           label="Description"
           name="description"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ offset: 1 }}
           rules={[
             {
               required: isDescriptionRequired,

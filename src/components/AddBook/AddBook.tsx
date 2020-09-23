@@ -26,7 +26,7 @@ const AddBook: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
   const [selectedSubgenre, setSelectedSubgenre] = useState<string>('');
-  const [withoutNew, setWithoutNew] = useState(true);
+  const [withoutNew, setWithoutNew] = useState<boolean>(true);
 
   const genreData = useFetch('genres');
 
@@ -71,6 +71,11 @@ const AddBook: React.FC = () => {
     setCurrentStep(3);
   };
 
+  const handleSetNewSubgenre = (name: string) => {
+    setSelectedSubgenre(name);
+    setCurrentStep(3);
+  };
+
   return (
     <S.AddBook data-testid="AddBook" title="Add book - New book">
       <StepView currentStep={currentStep} steps={withoutNew ? steps_without_new : steps_with_new} />
@@ -91,7 +96,7 @@ const AddBook: React.FC = () => {
 
       {currentStep === 2 && (
         <>
-          <NewSubgenre parentGenre={selectedGenre!} handleAfterSubmit={handleSetSubgenre} />
+          <NewSubgenre parentGenre={selectedGenre!} handleAfterSubmit={handleSetNewSubgenre} />
           <AddBookFooter
             backDisabled={false}
             nextDisabled={false}
