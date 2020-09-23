@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router';
 
 // Components
 import AddBook from '../AddBook';
-import Success from '../Success';
 import BookList from '../BookList';
+import Success from '../Success';
 
 const routePaths = {
   root: '/',

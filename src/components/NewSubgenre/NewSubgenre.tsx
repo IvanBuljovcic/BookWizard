@@ -3,15 +3,17 @@ import React from 'react';
 
 // Components
 import * as S from './NewSubgenreStyles';
+import { Checkbox, Form, Input } from 'antd';
 
 // Typings
 import { INewSubgenreProps } from './NewSubgenre.types';
-import { Checkbox, Form, Input } from 'antd';
+import { ISubGenre } from '../GenreList/GenreList.types';
 
 const NewSubgenre: React.FC<INewSubgenreProps> = ({ parentGenre, handleAfterSubmit }) => {
   const handleSubgenreCreation = async (values: { name: string; isDescriptionRequired: boolean }) => {
-    const newGenreId = Math.floor(Math.random() * 100); // Mock ID assignment, this would be handled by the BE
-    const newGenre = {
+    const newGenreId = Math.floor(Math.random() * 100);
+
+    const newGenre: ISubGenre = {
       id: newGenreId, // Mock ID assignment, this would be handled by the BE
       name: values.name,
       isDescriptionRequired: values.isDescriptionRequired || false,
@@ -27,7 +29,7 @@ const NewSubgenre: React.FC<INewSubgenreProps> = ({ parentGenre, handleAfterSubm
         ...parentGenre,
         subgenres: [...parentGenre.subgenres, newGenre],
       }),
-    }).then(() => handleAfterSubmit(values.name));
+    }).then(() => handleAfterSubmit(newGenre));
   };
 
   return (

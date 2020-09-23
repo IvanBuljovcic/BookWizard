@@ -1,13 +1,13 @@
 // Generated with util/create-component.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Components
 import * as S from './GenreListStyles';
 import { Button } from 'antd';
+import AddBookFooter from '../AddBookFooter';
 
 // Typings
 import { IGenre, IGenreListProps, ISubGenre } from './GenreList.types';
-import AddBookFooter from '../AddBookFooter';
 
 const GenreList: React.FC<IGenreListProps> = ({
   genres,
@@ -16,9 +16,14 @@ const GenreList: React.FC<IGenreListProps> = ({
   handleNext = () => null,
   handleAddNew = () => null,
   handleBack = () => null,
+  genre,
 }) => {
   const [selectedGenre, setSelectedGenre] = useState<number | null>();
   const [addNewSelected, setAddNewSelected] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (genre) setSelectedGenre(genre.id);
+  }, [genre]);
 
   const handleGenreChange = (genreId: number) => {
     if (addNewEnabled) setAddNewSelected(false);

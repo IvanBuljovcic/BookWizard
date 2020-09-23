@@ -1,5 +1,5 @@
 // Generated with util/create-component.js
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 // Components
@@ -12,23 +12,18 @@ import { IBook, TRouterBookList } from './BookList.types';
 
 // Hooks
 import useFetch from '../../hooks/useFetch';
+
+// Constants
 import { routePaths } from '../Routes';
 
 const BookList: React.FC<TRouterBookList> = ({ history }) => {
-  const isFirstRender = useRef(true);
-
   const booksData = useFetch('books');
-
-  // On initial render, set ref to false
-  useEffect(() => {
-    isFirstRender.current = false;
-  }, []);
 
   return (
     <S.BookList data-testid="BookList" title="Books">
       <S.ListWrapper>
         <Card onClick={() => history.push(routePaths.addBook)} type="inner" hoverable>
-          <PlusCircleOutlined style={{ fontSize: '3rem', color: '#CCF' }} />
+          <PlusCircleOutlined style={{ fontSize: '3rem', color: '#1890ff' }} />
           <Typography.Title level={4}>Add new book</Typography.Title>
         </Card>
 

@@ -3,11 +3,11 @@ import React from 'react';
 
 // Components
 import * as S from './AddBookFooterStyles';
+import { Button } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 
 // Typings
 import { IAddBookFooterProps } from './AddBookFooter.types';
-import { Button } from 'antd';
-import { LeftOutlined } from '@ant-design/icons';
 
 const AddBookFooter: React.FC<IAddBookFooterProps> = ({
   backDisabled,

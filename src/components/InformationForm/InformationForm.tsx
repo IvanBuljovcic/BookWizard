@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 // Components
 import * as S from './InformationFormStyles';
-import { DatePicker, Form, Input, Select, Space } from 'antd';
+import { DatePicker, Form, Input, Select } from 'antd';
 
 // Typings
 import { IAuthor, IPublisher, TRoutedInformationForm } from './InformationForm.types';
@@ -59,139 +59,168 @@ const InformationForm: React.FC<TRoutedInformationForm> = ({
       .catch(() => console.log('ERROR'));
   };
 
+  const renderTitle = () => (
+    <Form.Item
+      label="Book title"
+      name="book_title"
+      rules={[{ required: true, message: 'Field is required!' }]}
+      labelCol={{ span: 5 }}
+      wrapperCol={{ offset: 1 }}
+    >
+      <Input />
+    </Form.Item>
+  );
+
+  const renderAuthor = () => (
+    <Form.Item
+      label="Author"
+      name="author"
+      rules={[{ required: true, message: 'Field is required!' }]}
+      labelCol={{ span: 5 }}
+      wrapperCol={{ offset: 1 }}
+    >
+      <Select>
+        {authorsData &&
+          authorsData.map((author: IAuthor) => (
+            <Select.Option value={author.name} key={author.id}>
+              {author.name}
+            </Select.Option>
+          ))}
+      </Select>
+    </Form.Item>
+  );
+
+  const renderISBN = () => (
+    <Form.Item
+      label="ISBN"
+      name="isbn"
+      rules={[{ required: true, message: 'Field is required!' }]}
+      labelCol={{ span: 5 }}
+      wrapperCol={{ offset: 1 }}
+    >
+      <Input />
+    </Form.Item>
+  );
+
+  const renderPublisher = () => (
+    <Form.Item
+      label="Publisher"
+      name="publisher"
+      rules={[{ required: true, message: 'Field is required!' }]}
+      labelCol={{ span: 5 }}
+      wrapperCol={{ offset: 1 }}
+    >
+      <Select>
+        {publishersData &&
+          publishersData.map((publisher: IPublisher) => (
+            <Select.Option value={publisher.name} key={publisher.id}>
+              {publisher.name}
+            </Select.Option>
+          ))}
+      </Select>
+    </Form.Item>
+  );
+
+  const renderDatePublished = () => (
+    <Form.Item label="Date published" name="date_published" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
+      <div style={{ display: 'flex', alignItems: 'start' }}>
+        <DatePicker format="YYYY-MM-DD HH:mm" />
+      </div>
+    </Form.Item>
+  );
+
+  const renderPageNumber = () => (
+    <Form.Item label="Number of pages" name="page_number" labelCol={{ span: 5 }} wrapperCol={{ span: 4, offset: 1 }}>
+      <Input type="number" />
+    </Form.Item>
+  );
+
+  const renderFormat = () => (
+    <Form.Item label="Format" name="format" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
+      <Select>
+        {BOOK_FORMATS.map(format => (
+          <Select.Option key={format} value={format}>
+            {format}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+
+  const renderEdition = () => (
+    <Form.Item label="Edition" name="edition" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
+      <Input />
+    </Form.Item>
+  );
+
+  const renderEditionLanguage = () => (
+    <Form.Item
+      label="Edition language"
+      name="edition_language"
+      initialValue={EDITION_LANGUAGES[0]}
+      rules={[{ required: true, message: 'Field is required!' }]}
+      labelCol={{ span: 5 }}
+      wrapperCol={{ span: 5, offset: 1 }}
+    >
+      <Select>
+        {EDITION_LANGUAGES.map(lang => (
+          <Select.Option key={lang} value={lang}>
+            {lang}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  );
+
+  const renderDescription = () => (
+    <Form.Item
+      label="Description"
+      name="description"
+      labelCol={{ span: 5 }}
+      wrapperCol={{ offset: 1 }}
+      rules={[
+        {
+          required: isDescriptionRequired,
+          message: 'Description is required!',
+        },
+      ]}
+    >
+      <Input.TextArea rows={4} />
+    </Form.Item>
+  );
+
   return (
     <S.InformationForm data-testid="InformationForm">
-      <Form validateTrigger="onBlur" id="myForm" onFinish={useSubmit}>
+      <Form validateTrigger="onBlur" id="informationForm" onFinish={useSubmit}>
         {/* TITLE */}
-        <Form.Item
-          label="Book title"
-          name="book_title"
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-        >
-          <Input />
-        </Form.Item>
+        {renderTitle()}
 
         {/* AUTHOR */}
-        <Form.Item
-          label="Author"
-          name="author"
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-        >
-          <Select>
-            {authorsData &&
-              authorsData.map((author: IAuthor) => (
-                <Select.Option value={author.name} key={author.id}>
-                  {author.name}
-                </Select.Option>
-              ))}
-          </Select>
-        </Form.Item>
+        {renderAuthor()}
 
         {/* ISBN */}
-        <Form.Item
-          label="ISBN"
-          name="isbn"
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-        >
-          <Input />
-        </Form.Item>
+        {renderISBN()}
 
         {/* PUBLISHER */}
-        <Form.Item
-          label="Publisher"
-          name="publisher"
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-        >
-          <Select>
-            {publishersData &&
-              publishersData.map((publisher: IPublisher) => (
-                <Select.Option value={publisher.name} key={publisher.id}>
-                  {publisher.name}
-                </Select.Option>
-              ))}
-          </Select>
-        </Form.Item>
+        {renderPublisher()}
 
         {/* DATE PUBLISHED */}
-        <Form.Item
-          label="Date published"
-          name="date_published"
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-        >
-          <div style={{ display: 'flex', alignItems: 'start' }}>
-            <DatePicker format="YYYY-MM-DD HH:mm" />
-          </div>
-        </Form.Item>
+        {renderDatePublished()}
 
         {/* NUMBER OF PAGES */}
-        <Form.Item
-          label="Number of pages"
-          name="page_number"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 4, offset: 1 }}
-        >
-          <Input type="number" />
-        </Form.Item>
+        {renderPageNumber()}
 
         {/* BOOK FORMAT */}
-        <Form.Item label="Format" name="format" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
-          <Select>
-            {BOOK_FORMATS.map(format => (
-              <Select.Option key={format} value={format}>
-                {format}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {renderFormat()}
 
         {/* EDITION */}
-        <Form.Item label="Edition" name="edition" labelCol={{ span: 5 }} wrapperCol={{ offset: 1 }}>
-          <Input />
-        </Form.Item>
+        {renderEdition()}
 
         {/* EDITION LANGUAGE */}
-        <Form.Item
-          label="Edition language"
-          name="edition_language"
-          initialValue={EDITION_LANGUAGES[0]}
-          rules={[{ required: true, message: 'Field is required!' }]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 5, offset: 1 }}
-        >
-          <Select>
-            {EDITION_LANGUAGES.map(lang => (
-              <Select.Option key={lang} value={lang}>
-                {lang}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+        {renderEditionLanguage()}
 
         {/* DESCRIPTION */}
-        <Form.Item
-          label="Description"
-          name="description"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ offset: 1 }}
-          rules={[
-            {
-              required: isDescriptionRequired,
-              message: 'Description is required!',
-            },
-          ]}
-        >
-          <Input.TextArea rows={4} />
-        </Form.Item>
+        {renderDescription()}
       </Form>
     </S.InformationForm>
   );

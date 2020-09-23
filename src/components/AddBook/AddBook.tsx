@@ -1,5 +1,5 @@
 // Generated with util/create-component.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useReducer } from 'react';
 import _ from 'lodash';
 
 // Components
@@ -15,92 +15,82 @@ import { IGenre, ISubGenre } from '../GenreList/GenreList.types';
 
 // Hooks
 import useFetch from '../../hooks/useFetch';
+import { addBookReducer, initialState } from './reducer/reducer';
+import { setStep, setGenre, setSubGenre } from './reducer/actions';
 
 // Constants
 const steps_without_new = ['Genre', 'Subgenre', 'Information'];
 const steps_with_new = ['Genre', 'Subgenre', 'Add new subgenre', 'Information'];
 
 const AddBook: React.FC = () => {
-  const isFirstRender = useRef(true);
+  const [state, dispatch] = useReducer(addBookReducer, initialState);
+  const { step, genre, subgenre } = state;
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
-  const [selectedSubgenre, setSelectedSubgenre] = useState<string>('');
   const [withoutNew, setWithoutNew] = useState<boolean>(true);
 
   const genreData = useFetch('genres');
 
-  // 'Callback' to the useState of setSelectedGenre
-  //
-  // Set step (to 1) when the state `selectedGenre` changes
-  useEffect(() => {
-    if (!isFirstRender.current) {
-      setCurrentStep(1);
-    }
-  }, [selectedGenre]);
-
-  // On initial render, set ref to false
-  useEffect(() => {
-    isFirstRender.current = false;
-  }, []);
-
   // Click on `Back` button
   const handleBackClick = () => {
-    if (currentStep === 2) {
+    if (step === 2) {
       setWithoutNew(true);
     }
 
-    setCurrentStep(prevState => prevState - 1);
+    setStep(dispatch, step - 1);
   };
 
   // Filter out the selected genre by its id from the list of genres
   const handleGenreSelect = (id: number) => {
     const selectedGenre = _.find(genreData, (item: IGenre) => item.id === id);
 
-    setSelectedGenre(selectedGenre!); // Set selectedGenre; Telling TypeScript that it can trust the type to be correct
+    setGenre(dispatch, selectedGenre);
+    setStep(dispatch, 1);
   };
 
+  // Handler for 'Add new subgenre' button
   const handleAddNew = () => {
     setWithoutNew(false);
-    setCurrentStep(2);
+    setStep(dispatch, 2);
   };
 
   const handleSetSubgenre = (id: number) => {
-    const selectedSubGenre = _.find(selectedGenre?.subgenres, (item: ISubGenre) => item.id === id);
-    setSelectedSubgenre(selectedSubGenre!.name);
-    setCurrentStep(3);
+    const selectedSubGenre = _.find(genre?.subgenres, (item: ISubGenre) => item.id === id);
+
+    setSubGenre(dispatch, selectedSubGenre);
+    setStep(dispatch, 3);
   };
 
-  const handleSetNewSubgenre = (name: string) => {
-    setSelectedSubgenre(name);
-    setCurrentStep(3);
+  const handleSetNewSubgenre = (subgenre: ISubGenre) => {
+    setSubGenre(dispatch, subgenre);
+    setStep(dispatch, 3);
   };
 
   return (
     <S.AddBook data-testid="AddBook" title="Add book - New book">
-      <StepView currentStep={currentStep} steps={withoutNew ? steps_without_new : steps_with_new} />
+      <StepView currentStep={step} steps={withoutNew ? steps_without_new : steps_with_new} />
 
-      {currentStep === 0 && (
-        <GenreList genres={genreData} addNewEnabled={false} backDisabled handleNext={handleGenreSelect} />
+      {step === 0 && (
+        <GenreList genres={genreData} addNewEnabled={false} backDisabled handleNext={handleGenreSelect} genre={genre} />
       )}
 
-      {currentStep === 1 && selectedGenre && (
+      {step === 1 && genre && (
         <GenreList
-          genres={selectedGenre.subgenres}
+          genres={genre.subgenres}
           addNewEnabled
           handleAddNew={handleAddNew}
           handleBack={handleBackClick}
           handleNext={handleSetSubgenre}
+          genre={subgenre}
         />
       )}
 
-      {currentStep === 2 && (
+      {step === 2 && (
         <>
-          <NewSubgenre parentGenre={selectedGenre!} handleAfterSubmit={handleSetNewSubgenre} />
+          <NewSubgenre parentGenre={genre!} handleAfterSubmit={handleSetNewSubgenre} />
           <AddBookFooter
             backDisabled={false}
             nextDisabled={false}
-            handleBack={() => setCurrentStep(1)}
+            handleBack={() => setStep(dispatch, 1)}
             form="newSubgenreForm"
             isSubmit
             nextButtonText="Add new subgenre"
@@ -108,17 +98,17 @@ const AddBook: React.FC = () => {
         </>
       )}
 
-      {currentStep === 3 && (
+      {step === 3 && (
         <>
-          <InformationForm genre={selectedGenre!.name} subgenre={selectedSubgenre} isDescriptionRequired />
+          <InformationForm genre={genre!.name} subgenre={subgenre!.name} isDescriptionRequired />
           <AddBookFooter
             backDisabled={false}
             nextDisabled={false}
             handleBack={() => {
-              if (withoutNew) return setCurrentStep(1);
-              return setCurrentStep(2);
+              if (withoutNew) return setStep(dispatch, 1);
+              return setStep(dispatch, 2);
             }}
-            form="myForm"
+            form="informationForm"
             isSubmit
             nextButtonText="Add"
           />

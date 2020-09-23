@@ -1,12 +1,12 @@
 // Generated with util/create-component.js
 import React from 'react';
 
-// Typings
-import { IStepViewProps } from './StepView.types';
-
 // Components
 import * as S from './StepViewStyles';
 import { Steps } from 'antd';
+
+// Typings
+import { IStepViewProps } from './StepView.types';
 
 const StepView: React.FC<IStepViewProps> = ({ currentStep, steps }) => {
   return (

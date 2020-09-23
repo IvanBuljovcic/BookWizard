@@ -2,5 +2,5 @@
 import styled from 'styled-components';
 
 export const NewSubgenre = styled.div`
-  // Write styles here
+  /* Write styles here */
 `;

@@ -15,6 +15,7 @@ export interface IGenreListProps {
   addNewEnabled?: boolean;
   backDisabled?: boolean;
   genres: (IGenre | ISubGenre)[];
+  genre?: IGenre | ISubGenre;
   handleNext?: (id: number) => void;
   handleAddNew?: () => void;
   handleBack?: () => void;
